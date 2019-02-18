@@ -62,9 +62,11 @@ func (m *JoinGame) GetPlayer() *Player {
 
 // Messages server -> client
 type GameJoined struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	GUID                 string    `protobuf:"bytes,1,opt,name=GUID,proto3" json:"GUID,omitempty"`
+	Players              []*Player `protobuf:"bytes,2,rep,name=Players,proto3" json:"Players,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
 }
 
 func (m *GameJoined) Reset()         { *m = GameJoined{} }
@@ -92,10 +94,26 @@ func (m *GameJoined) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GameJoined proto.InternalMessageInfo
 
+func (m *GameJoined) GetGUID() string {
+	if m != nil {
+		return m.GUID
+	}
+	return ""
+}
+
+func (m *GameJoined) GetPlayers() []*Player {
+	if m != nil {
+		return m.Players
+	}
+	return nil
+}
+
 type GameStart struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	GUID                 string    `protobuf:"bytes,1,opt,name=GUID,proto3" json:"GUID,omitempty"`
+	Players              []*Player `protobuf:"bytes,2,rep,name=Players,proto3" json:"Players,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
 }
 
 func (m *GameStart) Reset()         { *m = GameStart{} }
@@ -123,38 +141,171 @@ func (m *GameStart) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GameStart proto.InternalMessageInfo
 
-type GameStop struct {
+func (m *GameStart) GetGUID() string {
+	if m != nil {
+		return m.GUID
+	}
+	return ""
+}
+
+func (m *GameStart) GetPlayers() []*Player {
+	if m != nil {
+		return m.Players
+	}
+	return nil
+}
+
+type GameUpdate struct {
+	GUID                 string    `protobuf:"bytes,1,opt,name=GUID,proto3" json:"GUID,omitempty"`
+	Players              []*Player `protobuf:"bytes,2,rep,name=Players,proto3" json:"Players,omitempty"`
+	Question             *Question `protobuf:"bytes,3,opt,name=Question,proto3" json:"Question,omitempty"`
+	Time                 int32     `protobuf:"varint,4,opt,name=Time,proto3" json:"Time,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *GameUpdate) Reset()         { *m = GameUpdate{} }
+func (m *GameUpdate) String() string { return proto.CompactTextString(m) }
+func (*GameUpdate) ProtoMessage()    {}
+func (*GameUpdate) Descriptor() ([]byte, []int) {
+	return fileDescriptor_38fc58335341d769, []int{3}
+}
+
+func (m *GameUpdate) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GameUpdate.Unmarshal(m, b)
+}
+func (m *GameUpdate) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GameUpdate.Marshal(b, m, deterministic)
+}
+func (m *GameUpdate) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GameUpdate.Merge(m, src)
+}
+func (m *GameUpdate) XXX_Size() int {
+	return xxx_messageInfo_GameUpdate.Size(m)
+}
+func (m *GameUpdate) XXX_DiscardUnknown() {
+	xxx_messageInfo_GameUpdate.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GameUpdate proto.InternalMessageInfo
+
+func (m *GameUpdate) GetGUID() string {
+	if m != nil {
+		return m.GUID
+	}
+	return ""
+}
+
+func (m *GameUpdate) GetPlayers() []*Player {
+	if m != nil {
+		return m.Players
+	}
+	return nil
+}
+
+func (m *GameUpdate) GetQuestion() *Question {
+	if m != nil {
+		return m.Question
+	}
+	return nil
+}
+
+func (m *GameUpdate) GetTime() int32 {
+	if m != nil {
+		return m.Time
+	}
+	return 0
+}
+
+type GameWait struct {
+	GUID                 string   `protobuf:"bytes,1,opt,name=GUID,proto3" json:"GUID,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *GameStop) Reset()         { *m = GameStop{} }
-func (m *GameStop) String() string { return proto.CompactTextString(m) }
-func (*GameStop) ProtoMessage()    {}
-func (*GameStop) Descriptor() ([]byte, []int) {
-	return fileDescriptor_38fc58335341d769, []int{3}
+func (m *GameWait) Reset()         { *m = GameWait{} }
+func (m *GameWait) String() string { return proto.CompactTextString(m) }
+func (*GameWait) ProtoMessage()    {}
+func (*GameWait) Descriptor() ([]byte, []int) {
+	return fileDescriptor_38fc58335341d769, []int{4}
 }
 
-func (m *GameStop) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GameStop.Unmarshal(m, b)
+func (m *GameWait) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GameWait.Unmarshal(m, b)
 }
-func (m *GameStop) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GameStop.Marshal(b, m, deterministic)
+func (m *GameWait) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GameWait.Marshal(b, m, deterministic)
 }
-func (m *GameStop) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GameStop.Merge(m, src)
+func (m *GameWait) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GameWait.Merge(m, src)
 }
-func (m *GameStop) XXX_Size() int {
-	return xxx_messageInfo_GameStop.Size(m)
+func (m *GameWait) XXX_Size() int {
+	return xxx_messageInfo_GameWait.Size(m)
 }
-func (m *GameStop) XXX_DiscardUnknown() {
-	xxx_messageInfo_GameStop.DiscardUnknown(m)
+func (m *GameWait) XXX_DiscardUnknown() {
+	xxx_messageInfo_GameWait.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GameStop proto.InternalMessageInfo
+var xxx_messageInfo_GameWait proto.InternalMessageInfo
+
+func (m *GameWait) GetGUID() string {
+	if m != nil {
+		return m.GUID
+	}
+	return ""
+}
+
+type NextQuestion struct {
+	GUID                 string    `protobuf:"bytes,1,opt,name=GUID,proto3" json:"GUID,omitempty"`
+	Question             *Question `protobuf:"bytes,2,opt,name=Question,proto3" json:"Question,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *NextQuestion) Reset()         { *m = NextQuestion{} }
+func (m *NextQuestion) String() string { return proto.CompactTextString(m) }
+func (*NextQuestion) ProtoMessage()    {}
+func (*NextQuestion) Descriptor() ([]byte, []int) {
+	return fileDescriptor_38fc58335341d769, []int{5}
+}
+
+func (m *NextQuestion) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_NextQuestion.Unmarshal(m, b)
+}
+func (m *NextQuestion) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_NextQuestion.Marshal(b, m, deterministic)
+}
+func (m *NextQuestion) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_NextQuestion.Merge(m, src)
+}
+func (m *NextQuestion) XXX_Size() int {
+	return xxx_messageInfo_NextQuestion.Size(m)
+}
+func (m *NextQuestion) XXX_DiscardUnknown() {
+	xxx_messageInfo_NextQuestion.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_NextQuestion proto.InternalMessageInfo
+
+func (m *NextQuestion) GetGUID() string {
+	if m != nil {
+		return m.GUID
+	}
+	return ""
+}
+
+func (m *NextQuestion) GetQuestion() *Question {
+	if m != nil {
+		return m.Question
+	}
+	return nil
+}
 
 type GameEnd struct {
+	GUID                 string   `protobuf:"bytes,1,opt,name=GUID,proto3" json:"GUID,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -164,7 +315,7 @@ func (m *GameEnd) Reset()         { *m = GameEnd{} }
 func (m *GameEnd) String() string { return proto.CompactTextString(m) }
 func (*GameEnd) ProtoMessage()    {}
 func (*GameEnd) Descriptor() ([]byte, []int) {
-	return fileDescriptor_38fc58335341d769, []int{4}
+	return fileDescriptor_38fc58335341d769, []int{6}
 }
 
 func (m *GameEnd) XXX_Unmarshal(b []byte) error {
@@ -185,7 +336,15 @@ func (m *GameEnd) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GameEnd proto.InternalMessageInfo
 
+func (m *GameEnd) GetGUID() string {
+	if m != nil {
+		return m.GUID
+	}
+	return ""
+}
+
 type GameResult struct {
+	GUID                 string   `protobuf:"bytes,1,opt,name=GUID,proto3" json:"GUID,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -195,7 +354,7 @@ func (m *GameResult) Reset()         { *m = GameResult{} }
 func (m *GameResult) String() string { return proto.CompactTextString(m) }
 func (*GameResult) ProtoMessage()    {}
 func (*GameResult) Descriptor() ([]byte, []int) {
-	return fileDescriptor_38fc58335341d769, []int{5}
+	return fileDescriptor_38fc58335341d769, []int{7}
 }
 
 func (m *GameResult) XXX_Unmarshal(b []byte) error {
@@ -216,11 +375,20 @@ func (m *GameResult) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GameResult proto.InternalMessageInfo
 
+func (m *GameResult) GetGUID() string {
+	if m != nil {
+		return m.GUID
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*JoinGame)(nil), "message.JoinGame")
 	proto.RegisterType((*GameJoined)(nil), "message.GameJoined")
 	proto.RegisterType((*GameStart)(nil), "message.GameStart")
-	proto.RegisterType((*GameStop)(nil), "message.GameStop")
+	proto.RegisterType((*GameUpdate)(nil), "message.GameUpdate")
+	proto.RegisterType((*GameWait)(nil), "message.GameWait")
+	proto.RegisterType((*NextQuestion)(nil), "message.NextQuestion")
 	proto.RegisterType((*GameEnd)(nil), "message.GameEnd")
 	proto.RegisterType((*GameResult)(nil), "message.GameResult")
 }
@@ -228,14 +396,22 @@ func init() {
 func init() { proto.RegisterFile("game.proto", fileDescriptor_38fc58335341d769) }
 
 var fileDescriptor_38fc58335341d769 = []byte{
-	// 141 bytes of a gzipped FileDescriptorProto
+	// 261 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4a, 0x4f, 0xcc, 0x4d,
 	0xd5, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0xcf, 0x4d, 0x2d, 0x2e, 0x4e, 0x4c, 0x4f, 0x95,
-	0xe2, 0x29, 0xc8, 0x49, 0xac, 0x4c, 0x2d, 0x82, 0x08, 0x2b, 0x19, 0x73, 0x71, 0x78, 0xe5, 0x67,
-	0xe6, 0xb9, 0x27, 0xe6, 0xa6, 0x0a, 0xa9, 0x73, 0xb1, 0x05, 0x80, 0xe5, 0x24, 0x18, 0x15, 0x18,
-	0x35, 0xb8, 0x8d, 0xf8, 0xf5, 0xa0, 0x7a, 0xf4, 0x20, 0xc2, 0x41, 0x50, 0x69, 0x25, 0x1e, 0x2e,
-	0x2e, 0x90, 0x06, 0x90, 0xc6, 0xd4, 0x14, 0x25, 0x6e, 0x2e, 0x4e, 0x10, 0x2f, 0xb8, 0x24, 0xb1,
-	0xa8, 0x44, 0x89, 0x8b, 0x8b, 0x03, 0xc2, 0xc9, 0x2f, 0x50, 0xe2, 0xe4, 0x62, 0x07, 0xb1, 0x5d,
-	0xf3, 0x52, 0x60, 0x3a, 0x82, 0x52, 0x8b, 0x4b, 0x73, 0x4a, 0x92, 0xd8, 0xc0, 0x76, 0x1b, 0x03,
-	0x02, 0x00, 0x00, 0xff, 0xff, 0x47, 0xab, 0xfb, 0xf6, 0xa0, 0x00, 0x00, 0x00,
+	0xe2, 0x29, 0xc8, 0x49, 0xac, 0x4c, 0x2d, 0x82, 0x08, 0x4b, 0xf1, 0x15, 0x96, 0xa6, 0x16, 0x97,
+	0x64, 0xe6, 0xe7, 0x41, 0xf8, 0x4a, 0xc6, 0x5c, 0x1c, 0x5e, 0xf9, 0x99, 0x79, 0xee, 0x89, 0xb9,
+	0xa9, 0x42, 0xea, 0x5c, 0x6c, 0x01, 0x60, 0xb5, 0x12, 0x8c, 0x0a, 0x8c, 0x1a, 0xdc, 0x46, 0xfc,
+	0x7a, 0x50, 0x33, 0xf4, 0x20, 0xc2, 0x41, 0x50, 0x69, 0x25, 0x6f, 0x2e, 0x2e, 0x90, 0x06, 0x90,
+	0xc6, 0xd4, 0x14, 0x21, 0x21, 0x2e, 0x16, 0xf7, 0x50, 0x4f, 0x17, 0xb0, 0x26, 0xce, 0x20, 0x30,
+	0x5b, 0x48, 0x93, 0x8b, 0x1d, 0xa2, 0xb6, 0x58, 0x82, 0x49, 0x81, 0x19, 0x9b, 0x59, 0x30, 0x79,
+	0x25, 0x2f, 0x2e, 0x4e, 0x90, 0x61, 0xc1, 0x25, 0x89, 0x45, 0x25, 0x94, 0x9a, 0xd5, 0xc7, 0x08,
+	0x71, 0x59, 0x68, 0x41, 0x4a, 0x62, 0x49, 0x2a, 0x85, 0xa6, 0x09, 0xe9, 0x72, 0x71, 0x04, 0x42,
+	0x43, 0x4b, 0x82, 0x19, 0x1c, 0x22, 0x82, 0x70, 0xb5, 0x30, 0x89, 0x20, 0xb8, 0x12, 0x90, 0x6d,
+	0x21, 0x99, 0xb9, 0xa9, 0x12, 0x2c, 0x0a, 0x8c, 0x1a, 0xac, 0x41, 0x60, 0xb6, 0x92, 0x1c, 0x17,
+	0x07, 0xc8, 0x3d, 0xe1, 0x89, 0x99, 0x58, 0xfd, 0xa6, 0x14, 0xc8, 0xc5, 0xe3, 0x97, 0x5a, 0x51,
+	0x82, 0x6c, 0x06, 0x86, 0x8b, 0x91, 0x9d, 0xc1, 0x44, 0xd0, 0x19, 0x4a, 0xb2, 0x5c, 0xec, 0x20,
+	0x2b, 0x5d, 0xf3, 0xb0, 0xc6, 0x8c, 0x92, 0x02, 0x24, 0x84, 0x82, 0x52, 0x8b, 0x4b, 0x73, 0xb0,
+	0xba, 0x29, 0x89, 0x0d, 0x9c, 0x32, 0x8c, 0x01, 0x01, 0x00, 0x00, 0xff, 0xff, 0xa8, 0x45, 0x93,
+	0xb7, 0x4e, 0x02, 0x00, 0x00,
 }
